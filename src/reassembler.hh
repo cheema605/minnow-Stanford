@@ -1,9 +1,9 @@
 #pragma once
 
 #include "byte_stream.hh"
+#include <cstdint>
 #include <map>
 #include <string>
-#include <cstdint>
 
 using namespace std;
 
@@ -11,10 +11,10 @@ class Reassembler
 {
 public:
   // Construct Reassembler to write into given ByteStream.
-  explicit Reassembler(ByteStream&& output);
+  explicit Reassembler( ByteStream&& output );
 
   // Insert a new substring to be reassembled into a ByteStream.
-  void insert(uint64_t first_index, string data, bool is_last_substring);
+  void insert( uint64_t first_index, string data, bool is_last_substring );
 
   // How many bytes are stored in the Reassembler itself?
   uint64_t count_bytes_pending() const;
@@ -33,7 +33,7 @@ private:
   uint64_t first_unassembled_index_;
 
   // EOF tracking: whether we've seen a last-substring marker and where the stream ends
-  bool     eof_seen_;
+  bool eof_seen_;
   uint64_t eof_index_; // absolute index of first byte *after* the last byte (i.e. end index)
 
   // Buffer for unassembled substrings (start index -> data)
