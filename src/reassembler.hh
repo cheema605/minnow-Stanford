@@ -24,6 +24,7 @@ public:
   const Reader& reader() const { return output_.reader(); }
 
   // Access output stream writer, but const-only (can't write from outside)
+  Writer& writer() { return output_.writer(); } 
   const Writer& writer() const { return output_.writer(); }
 
 private:
