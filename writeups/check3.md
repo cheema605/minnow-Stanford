@@ -1,38 +1,34 @@
-Checkpoint 3 Writeup
-====================
+My name: Hamza Akmal
 
-My name: [your name here]
+My SUNet ID: 23L-0513
 
-My SUNet ID: [your sunetid here]
+I collaborated with: 23L-0630
 
-I collaborated with: [list sunetids here]
+This checkpoint took me about 12 hours to do. I did attend the lab session.
 
-I would like to thank/reward these classmates for their help: [list sunetids here]
+Program Structure and Design of the TCPSender My TCPSender implementation maintains a queue (deque) of outstanding segments that have been transmitted but not yet acknowledged. Each outstanding segment is tracked with its absolute sequence number and retransmission timing data. The sender keeps variables for the next sequence number (next_seqno_abs_), the last acknowledged sequence number (last_acked_abs_), the current retransmission timeout (current_RTO_ms_), and the number of consecutive retransmissions.
 
-This checkpoint took me about [n] hours to do. I [did/did not] attend the lab session.
+The sender fills the receiver’s window by reading from the ByteStream and forming segments that respect the window size and TCP limits (like MAX_PAYLOAD_SIZE). When the sender receives an ACK, it removes fully acknowledged segments, resets the retransmission timer, and restarts the timer if there are still unacknowledged segments.
 
-Program Structure and Design of the TCPSender [Describe data
-structures and approach taken. Describe alternative designs considered
-or tested.  Describe benefits and weaknesses of your design compared
-with alternatives -- perhaps in terms of simplicity/complexity, risk
-of bugs, asymptotic performance, empirical performance, required
-implementation time and difficulty, and other factors. Include any
-measurements if applicable.]: []
+If the timer expires before an acknowledgment, the earliest unacknowledged segment is retransmitted, and the RTO doubles (exponential backoff). The implementation also correctly handles special cases, including zero-window probes, impossible ACK numbers, and stream errors that trigger RST segments.
 
-Report from the hands-on component: []
+Alternative designs considered:
+I considered maintaining only the total bytes in flight instead of storing each outstanding segment. That would have been simpler but made retransmission tracking and exact acknowledgment removal harder. The current design, using a deque of full message records, is clearer and more robust against off-by-one and timing bugs.factors. 
 
-Implementation Challenges:
-[]
+Report from the Hands-on Component
 
-Remaining Bugs:
-[]
+I verified correctness using the provided unit tests (send_connect, send_ack, send_close, etc.). After debugging window and acknowledgment handling, all tests passed. I also reviewed timing and retransmission behavior by examining debug output and ensuring that retransmission occurred after timeout expiry and reset properly on acknowledgment.
 
-- Optional: I had unexpected difficulty with: [describe]
 
-- Optional: I think you could make this lab better by: [describe]
+Implementation Challenges: hte hardest parts were:
 
-- Optional: I was surprised by: [describe]
+Handling impossible ACK numbers (ignoring ACKs beyond the next sequence number).
 
-- Optional: I'm not sure about: [describe]
+Correctly implementing the retransmission timer logic and exponential backoff.
 
-- Optional: I made an extra test I think will be helpful in catching bugs: [describe where to find]
+Ensuring RST behavior after a stream error for both empty and non-empty segments.
+
+Understanding how sequence numbers “wrap” using Wrap32 was also tricky at first, but became intuitive once tested against edge cases.
+
+Remaining Bugs: none
+
