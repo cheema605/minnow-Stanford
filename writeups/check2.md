@@ -1,36 +1,22 @@
-Checkpoint 2 Writeup
-====================
+My name: Ammar Bin Mudassar
 
-My name: [your name here]
+My SUNet ID: 23L-0630
 
-My SUNet ID: [your sunetid here]
+I collaborated with: Hamza Akmal
 
-I collaborated with: [list sunetids here]
+I would like to thank/reward these classmates for their help: 23L-0513
 
-I would like to thank/reward these classmates for their help: [list sunetids here]
+This lab took me about 4 hours to do. I did attend the lab session.
 
-This lab took me about [n] hours to do. I [did/did not] attend the lab session.
-
-Describe Wrap32 and TCPReceiver structure and design. [Describe data
-structures and approach taken. Describe alternative designs considered
-or tested.  Describe benefits and weaknesses of your design compared
-with alternatives -- perhaps in terms of simplicity/complexity, risk
-of bugs, asymptotic performance, empirical performance, required
-implementation time and difficulty, and other factors. Include any
-measurements if applicable.]
+Describe Wrap32 and TCPReceiver structure and design:
+Wrap32 handles wrapping/unwrapping of 32-bit sequence numbers into absolute 64-bit indices. TCPReceiver tracks ISN, processes incoming messages, reassembles payloads using the Reassembler, and generates acknowledgments. Used a straightforward approach with checkpoints for unwrap and stream index calculation.
 
 Implementation Challenges:
-[]
+[Handling off-by-one issues with SYN/FIN and unwrap logic.]
 
 Remaining Bugs:
-[]
+[None observed so far.]
 
-- Optional: I had unexpected difficulty with: [describe]
+Optional: I was surprised by: [How easily small mistakes in index calculation break tests.]
 
-- Optional: I think you could make this lab better by: [describe]
-
-- Optional: I was surprised by: [describe]
-
-- Optional: I'm not sure about: [describe]
-
-- Optional: I made an extra test I think will be helpful in catching bugs: [describe where to find]
+Optional: I'm not sure about: [RST handling in corner cases.]

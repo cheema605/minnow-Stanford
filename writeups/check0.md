@@ -1,27 +1,21 @@
 Checkpoint 0 Writeup
 ====================
 
-My name: [your name here]
+My name: Ammar Bin Mudassar
 
-My SUNet ID: [your sunetid here]
+My SUNet ID: 23L-0630
 
-I collaborated with: [list sunetids here]
+I collaborated with: Hamza Akmal
 
-I would like to credit/thank these classmates for their help: [list sunetids here]
+I would like to credit/thank these classmates for their help: 23L-0513
 
-This lab took me about [n] hours to do. I [did/did not] attend the lab session.
+This lab took me about 4 hours to do. I did attend the lab session.
 
-My secret code from section 2.1 was: [code here]
+My secret code from section 2.1 was: N/A
 
-I was surprised by or edified to learn that: [describe]
+I was surprised by or edified to learn that: How networks work
 
-Describe ByteStream implementation. [Describe data structures and
-approach taken. Describe alternative designs considered or tested.
-Describe benefits and weaknesses of your design compared with
-alternatives -- perhaps in terms of simplicity/complexity, risk of
-bugs, asymptotic performance, empirical performance, required
-implementation time and difficulty, and other factors. Include any
-measurements if applicable.]
+The ByteStream is implemented as a bounded FIFO buffer using a std::string for contiguous storage, along with counters to track bytes pushed, bytes popped, and a closed flag. This design keeps peek() simple and efficient by returning a std::string_view without copying. Alternative designs such as std::deque or a circular buffer were considered; while they offer faster pops, they complicate peek() or require more bookkeeping. Our approach favors simplicity and correctness over optimal asymptotic performance, which is acceptable for this assignment’s scale.
 
 - Optional: I had unexpected difficulty with: [describe]
 
